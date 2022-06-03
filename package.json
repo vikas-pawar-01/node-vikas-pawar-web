@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/vikas-pawar-01/my-blog#readme",
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.16"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

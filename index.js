@@ -22,13 +22,18 @@ app.use('/api/user', userRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/cron', usersScript);
 
+app.get('/close', () => {
+    console.log("Exiting NodeJS server");
+    process.exit();
+});
+
 app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build/index.html'), function (err) {
         if (err) {
             res.status(500).send(err)
         }
     });
-})
+});
 
 mongoose
     .connect(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@cluster0.enkvh.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`)

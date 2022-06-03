@@ -1,0 +1,39 @@
+{
+  "name": "my-blog",
+  "version": "1.0.0",
+  "description": "vikas pawar test blog",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vikas-pawar-01/my-blog.git"
+  },
+  "author": "Vikas Pawar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vikas-pawar-01/my-blog/issues"
+  },
+  "homepage": "https://github.com/vikas-pawar-01/my-blog#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bull": "^4.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.9",
+    "mongoose-unique-validator": "^3.0.0",
+    "node-cron": "^3.0.0",
+    "ps-node": "^0.1.6",
+    "redis": "^4.0.4"
+  }
+}

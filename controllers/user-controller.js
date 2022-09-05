@@ -2,7 +2,6 @@ const HttpError = require('../models/http-error');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 const User = require('../models/user');
 
 const getUsers = async (req, res, next) => {

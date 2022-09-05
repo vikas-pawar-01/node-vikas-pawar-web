@@ -3,12 +3,12 @@ require('dotenv').config();
 const express = require("express");
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs');
 const mongoose = require('mongoose');
 
+const featuresRoute = require('./routes/features-route');
 const userRoute = require('./routes/user-route');
 const usersRoute = require('./routes/users-route');
-const usersScript = require('./routes/users-script-route');
+const Todo = require('./models/todo');
 
 const app = express();
 
@@ -18,13 +18,60 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'build'), { index: false }));
 
+app.use('/features', featuresRoute);
 app.use('/api/user', userRoute);
 app.use('/api/users', usersRoute);
-app.use('/api/cron', usersScript);
 
 app.get('/close', () => {
     console.log("Exiting NodeJS server");
     process.exit();
+});
+
+app.get('/api/todos', async (req, res, next) => {
+    let todos;
+    try {
+        todos = await Todo.find({});
+    } catch (err) {
+        const error = new Error({
+            message: 'Something went wrong, could not retrive users.',
+            coed: 500
+        });
+
+        return next(error);
+    }
+
+
+    if (!todos || todos.length === 0) {
+        const error = new Error({
+            message: 'No todos.',
+            code: 404
+        });
+        return next(error);
+    }
+
+    res.json({ todos: todos.map(todo => todo.toObject({ getters: true })) });
+});
+
+app.post('/api/todo', async (req, res, next) => {
+    const { name } = req.body;
+
+    const createdTodo = new Todo({
+        name
+    });
+
+    try {
+        await createdTodo.save1();
+    } catch(err){
+        const error = new Error({
+            message: 'Add todo failed, please try again later.',
+            code: 500
+        });
+        return next(error);
+    }
+
+    res.status(201).json({
+        todoId: createdTodo.id,
+    });
 });
 
 app.get('/*', function (req, res) {
@@ -36,19 +83,29 @@ app.get('/*', function (req, res) {
 });
 
 mongoose
-    .connect(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@cluster0.enkvh.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`)
+    .connect(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@cluster0.a93w7yz.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`)
     .then(() => {
 
-        app.listen(process.env.PORT, (err) => {
+        let listener = app.listen(process.env.PORT, (err) => {
             if (err) {
                 console.log(err);
                 res.send({ status: 500, data: { message: err } });
             }
-            console.log(`App connected to PORT: ${process.env.PORT}`);
+            console.log(`App connected to PORT: ${listener.address().port}`);
         });
 
         console.log('MongoDB connected successfully!');
     })
     .catch((err) => {
+
         console.log(err);
+        console.log('MongoDB NOT connected!!!');
+
+        let listener = app.listen(process.env.PORT, (err) => {
+            if (err) {
+                console.log(err);
+                res.send({ status: 500, data: { message: err } });
+            }
+            console.log(`App connected to PORT: ${listener.address().port}`);
+        });        
     });

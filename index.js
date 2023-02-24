@@ -44,7 +44,7 @@ app.get('/api/todos', async (req, res, next) => {
     if (!todos || todos.length === 0) {
         const error = new Error({
             message: 'No todos.',
-            code: 404
+            code: 200
         });
         return next(error);
     }
@@ -60,7 +60,7 @@ app.post('/api/todo', async (req, res, next) => {
     });
 
     try {
-        await createdTodo.save1();
+        await createdTodo.save();
     } catch(err){
         const error = new Error({
             message: 'Add todo failed, please try again later.',
@@ -82,6 +82,7 @@ app.get('/*', function (req, res) {
     });
 });
 
+mongoose.set("strictQuery", false);
 mongoose
     .connect(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@cluster0.6xmi5b5.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`)
     .then(() => {

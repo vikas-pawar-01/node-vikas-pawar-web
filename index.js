@@ -83,7 +83,7 @@ app.get('/*', function (req, res) {
 });
 
 mongoose
-    .connect(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@cluster0.a93w7yz.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`)
+    .connect(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@cluster0.6xmi5b5.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`)
     .then(() => {
 
         let listener = app.listen(process.env.PORT, (err) => {

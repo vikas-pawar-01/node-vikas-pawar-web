@@ -16,8 +16,6 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'build'), { index: false }));
-
 app.use('/features', featuresRoute);
 app.use('/api/user', userRoute);
 app.use('/api/users', usersRoute);
@@ -73,6 +71,8 @@ app.post('/api/todo', async (req, res, next) => {
         todoId: createdTodo.id,
     });
 });
+
+app.use(express.static(path.join(__dirname, 'build'), { index: false }));
 
 app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build/index.html'), function (err) {

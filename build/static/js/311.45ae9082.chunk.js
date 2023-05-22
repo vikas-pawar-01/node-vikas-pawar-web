@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmy_blog_frontend=self.webpackChunkmy_blog_frontend||[]).push([[311],{6017:function(n,t,e){e(2791);var r=e(184);t.Z=function(n){return(0,r.jsx)("div",{className:"center",children:n.children})}},7311:function(n,t,e){e.r(t);e(2791);var r=e(6017),c=e(184);t.default=function(){return(0,c.jsx)(r.Z,{children:(0,c.jsx)("a",{target:"_blank",href:"https://vikaspawar.co.in/#contact",children:"Contact"})})}}}]);
+//# sourceMappingURL=311.45ae9082.chunk.js.map
